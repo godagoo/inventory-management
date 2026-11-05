@@ -1,7 +1,7 @@
 <template>
   <div class="orders">
     <div class="page-header">
-      <h2>{{ t('orders.title') }}</h2>
+      <h1>{{ t('orders.title') }}</h1>
       <p>{{ t('orders.description') }}</p>
     </div>
 
@@ -24,6 +24,56 @@
         <div class="stat-card danger">
           <div class="stat-label">{{ t('status.backordered') }}</div>
           <div class="stat-value">{{ getOrdersByStatus('Backordered').length }}</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">{{ t('orders.submittedOrders') }} ({{ restockOrders.length }})</h3>
+        </div>
+        <p v-if="restockOrdersError" class="error">{{ restockOrdersError }}</p>
+        <p v-else-if="!restockOrders.length" class="empty-state">{{ t('orders.noSubmittedOrders') }}</p>
+        <div v-else class="table-container">
+          <table class="orders-table">
+            <thead>
+              <tr>
+                <th class="col-order-number">{{ t('orders.table.orderNumber') }}</th>
+                <th class="col-items">{{ t('orders.table.items') }}</th>
+                <th class="col-status">{{ t('orders.table.status') }}</th>
+                <th class="col-date">{{ t('orders.table.orderDate') }}</th>
+                <th class="col-date">{{ t('orders.table.leadTime') }}</th>
+                <th class="col-date">{{ t('orders.table.expectedDelivery') }}</th>
+                <th class="col-value">{{ t('orders.table.totalValue') }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="order in restockOrders" :key="order.id">
+                <td class="col-order-number"><strong>{{ order.order_number }}</strong></td>
+                <td class="col-items">
+                  <details class="items-details">
+                    <summary class="items-summary">
+                      {{ t('orders.itemsCount', { count: order.items.length }) }}
+                    </summary>
+                    <div class="items-dropdown">
+                      <div v-for="item in order.items" :key="item.sku" class="item-entry">
+                        <span class="item-name">{{ translateProductName(item.name) }}</span>
+                        <span class="item-meta">{{ t('orders.quantity') }}: {{ item.quantity }} @ {{ money(item.unit_price) }}</span>
+                      </div>
+                    </div>
+                  </details>
+                </td>
+                <td class="col-status">
+                  <span :class="['badge', getOrderStatusClass(order.status)]">
+                    {{ t(`status.${order.status.toLowerCase()}`) }}
+                  </span>
+                </td>
+                <td class="col-date">{{ formatDate(order.order_date) }}</td>
+                <td class="col-date">{{ t('orders.leadTimeDays', { days: order.lead_time_days }) }}</td>
+                <td class="col-date">{{ formatDate(order.expected_delivery) }}</td>
+                <td class="col-value"><strong>{{ money(order.total_value) }}</strong></td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
 
@@ -83,6 +133,7 @@ import { ref, onMounted, watch, computed } from 'vue'
 import { api } from '../api'
 import { useFilters } from '../composables/useFilters'
 import { useI18n } from '../composables/useI18n'
+import { formatCurrencyWithDecimals } from '../utils/currency'
 
 export default {
   name: 'Orders',
@@ -95,6 +146,10 @@ export default {
     const loading = ref(true)
     const error = ref(null)
     const orders = ref([])
+    const restockOrders = ref([])
+    const restockOrdersError = ref(null)
+
+    const money = (amount) => formatCurrencyWithDecimals(amount, currentCurrency.value, 2)
 
     // Use shared filters
     const {
@@ -124,6 +179,16 @@ export default {
       }
     }
 
+    // Restock orders are independent of the global filters and a failure here must not hide customer orders
+    const loadRestockOrders = async () => {
+      try {
+        restockOrders.value = await api.getRestockOrders()
+        restockOrdersError.value = null
+      } catch (err) {
+        restockOrdersError.value = t('orders.submittedOrdersError') + ': ' + err.message
+      }
+    }
+
     // Watch for filter changes and reload data
     watch([selectedPeriod, selectedLocation, selectedCategory, selectedStatus], () => {
       loadOrders()
@@ -138,7 +203,8 @@ export default {
         'Delivered': 'success',
         'Shipped': 'info',
         'Processing': 'warning',
-        'Backordered': 'danger'
+        'Backordered': 'danger',
+        'Submitted': 'info'
       }
       return statusMap[status] || 'info'
     }
@@ -153,13 +219,19 @@ export default {
       })
     }
 
-    onMounted(loadOrders)
+    onMounted(() => {
+      loadOrders()
+      loadRestockOrders()
+    })
 
     return {
       t,
       loading,
       error,
       orders,
+      restockOrders,
+      restockOrdersError,
+      money,
       getOrdersByStatus,
       getOrderStatusClass,
       formatDate,
@@ -180,7 +252,8 @@ export default {
 
 /* Column widths */
 .col-order-number {
-  width: 130px;
+  width: 150px;
+  white-space: nowrap;
 }
 
 .col-customer {
@@ -234,7 +307,7 @@ export default {
 }
 
 .items-summary:hover {
-  color: #2563eb;
+  color: var(--color-primary);
   text-decoration: underline;
 }
 
@@ -244,12 +317,12 @@ export default {
   top: 100%;
   left: 0;
   margin-top: 0.5rem;
-  background: white;
-  border: 1px solid #e2e8f0;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
   border-radius: 8px;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
   padding: 0.75rem;
-  z-index: 10;
+  z-index: var(--z-dropdown);
   min-width: 300px;
   max-width: 400px;
 }
@@ -259,7 +332,7 @@ export default {
   flex-direction: column;
   gap: 0.25rem;
   padding: 0.5rem;
-  border-bottom: 1px solid #f1f5f9;
+  border-bottom: 1px solid var(--color-surface-muted);
 }
 
 .item-entry:last-child {
@@ -269,11 +342,18 @@ export default {
 .item-name {
   font-size: 0.875rem;
   font-weight: 500;
-  color: #0f172a;
+  color: var(--color-text-strong);
 }
 
 .item-meta {
   font-size: 0.813rem;
-  color: #64748b;
+  color: var(--color-text-muted);
+}
+
+.empty-state {
+  text-align: center;
+  padding: 1.5rem;
+  color: var(--color-text-muted);
+  font-size: 0.938rem;
 }
 </style>

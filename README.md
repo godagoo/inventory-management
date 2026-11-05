@@ -56,6 +56,9 @@ All endpoints support optional filtering via query params: `warehouse`, `categor
 - `GET /api/backlog` - Backlog items
 - `GET /api/dashboard/summary` - Summary statistics
 - `GET /api/spending/*` - Spending data
+- `GET /api/reports/quarterly`, `GET /api/reports/monthly-trends` - Report data
+- `GET /api/restock/recommendations?budget=` - Items to restock for a budget
+- `POST /api/restock-orders`, `GET /api/restock-orders` - Place and list restock orders (held in memory)
 
 ## Demo Data
 

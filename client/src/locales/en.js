@@ -6,8 +6,15 @@ export default {
     orders: 'Orders',
     finance: 'Finance',
     demandForecast: 'Demand Forecast',
+    restocking: 'Restocking',
+    reports: 'Reports',
+    backlog: 'Backlog',
     companyName: 'Catalyst Components',
-    subtitle: 'Inventory Management System'
+    subtitle: 'Inventory Management System',
+    primary: 'Main navigation',
+    openMenu: 'Open menu',
+    closeMenu: 'Close menu',
+    skipToContent: 'Skip to main content'
   },
 
   // Dashboard
@@ -112,6 +119,10 @@ export default {
     onTimeDelivery: 'On-Time Delivery',
     itemsCount: '{count} items',
     quantity: 'Qty',
+    submittedOrders: 'Submitted Orders',
+    noSubmittedOrders: 'No restock orders have been submitted yet',
+    submittedOrdersError: 'Failed to load submitted orders',
+    leadTimeDays: '{days} days',
     table: {
       orderNumber: 'Order Number',
       orderId: 'Order ID',
@@ -125,7 +136,90 @@ export default {
       totalValue: 'Total Value',
       status: 'Status',
       expectedDelivery: 'Expected Delivery',
-      actualDelivery: 'Actual Delivery'
+      actualDelivery: 'Actual Delivery',
+      leadTime: 'Lead Time'
+    }
+  },
+
+  restocking: {
+    title: 'Restocking',
+    description: 'Choose a budget and order the items forecast to sell out first',
+    budget: 'Budget',
+    totalCost: 'Total Cost',
+    remainingBudget: 'Remaining Budget',
+    fullCost: 'Full restock cost',
+    recommendations: 'Recommended Items',
+    noRecommendations: 'This budget does not cover any items. Increase the budget to see recommendations.',
+    ofNeeded: '{quantity} of {needed}',
+    placeOrder: 'Place Order',
+    placingOrder: 'Placing order...',
+    orderPlaced: 'Order {orderNumber} was submitted.',
+    viewOrders: 'View orders',
+    orderFailed: 'Failed to place the order',
+    loadFailed: 'Failed to load recommendations',
+    table: {
+      item: 'Item',
+      trend: 'Trend',
+      quantity: 'Quantity',
+      unitCost: 'Unit Cost',
+      lineTotal: 'Line Total'
+    }
+  },
+
+  // Reports
+  reports: {
+    title: 'Performance Reports',
+    description: 'View quarterly performance metrics and monthly trends',
+    quarterlyPerformance: 'Quarterly Performance',
+    monthlyRevenueTrend: 'Monthly Revenue Trend',
+    monthOverMonth: 'Month-over-Month Analysis',
+    loadFailed: 'Failed to load reports',
+    notAvailable: 'N/A',
+    monthLabel: '{month} {year}',
+    table: {
+      quarter: 'Quarter',
+      totalOrders: 'Total Orders',
+      totalRevenue: 'Total Revenue',
+      avgOrderValue: 'Avg Order Value',
+      fulfillmentRate: 'Fulfillment Rate',
+      month: 'Month',
+      orders: 'Orders',
+      revenue: 'Revenue',
+      change: 'Change',
+      growthRate: 'Growth Rate'
+    },
+    stats: {
+      totalRevenue: 'Total Revenue (YTD)',
+      avgMonthlyRevenue: 'Avg Monthly Revenue',
+      totalOrders: 'Total Orders (YTD)',
+      bestQuarter: 'Best Performing Quarter'
+    }
+  },
+
+  // Backlog
+  backlog: {
+    title: 'Backlog Management',
+    description: 'Track and resolve inventory shortages',
+    items: 'Backlog Items',
+    empty: 'No backlog items - all orders can be fulfilled!',
+    loadFailed: 'Failed to load backlog',
+    unitsShort: '{count} units short',
+    daysCount: '{count} days',
+    stats: {
+      high: 'High Priority',
+      medium: 'Medium Priority',
+      low: 'Low Priority',
+      total: 'Total Backlog Items'
+    },
+    table: {
+      orderId: 'Order ID',
+      sku: 'SKU',
+      itemName: 'Item Name',
+      quantityNeeded: 'Quantity Needed',
+      quantityAvailable: 'Quantity Available',
+      shortage: 'Shortage',
+      daysDelayed: 'Days Delayed',
+      priority: 'Priority'
     }
   },
 
@@ -195,7 +289,8 @@ export default {
     category: 'Category',
     orderStatus: 'Order Status',
     all: 'All',
-    allMonths: 'All Months'
+    allMonths: 'All Months',
+    reset: 'Reset all filters'
   },
 
   // Statuses
@@ -204,6 +299,7 @@ export default {
     shipped: 'Shipped',
     processing: 'Processing',
     backordered: 'Backordered',
+    submitted: 'Submitted',
     inStock: 'In Stock',
     lowStock: 'Low Stock',
     adequate: 'Adequate'
