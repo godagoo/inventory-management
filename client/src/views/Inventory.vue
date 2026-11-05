@@ -1,7 +1,7 @@
 <template>
   <div class="inventory">
     <div class="page-header">
-      <h2>{{ t('inventory.title') }}</h2>
+      <h1>{{ t('inventory.title') }}</h1>
       <p>{{ t('inventory.description') }}</p>
     </div>
 
@@ -229,12 +229,12 @@ export default {
   margin-bottom: 1.5rem;
 }
 
-.page-header h2 {
+.page-header h1 {
   margin-bottom: 0.25rem;
 }
 
 .page-header p {
-  color: #64748b;
+  color: var(--color-text-muted);
   font-size: 0.875rem;
 }
 
@@ -242,15 +242,16 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 1.5rem;
-  padding: 1.25rem 1.5rem;
-  border-bottom: 1px solid #e2e8f0;
+  flex-wrap: wrap;
+  gap: var(--space-3) var(--space-4);
+  padding-bottom: var(--space-3);
+  border-bottom: 1px solid var(--color-border);
 }
 
 .card-title {
   font-size: 1rem;
   font-weight: 600;
-  color: #0f172a;
+  color: var(--color-text-strong);
   margin: 0;
 }
 
@@ -258,7 +259,8 @@ export default {
   position: relative;
   display: flex;
   align-items: center;
-  min-width: 300px;
+  flex: 1 1 240px;
+  max-width: 360px;
 }
 
 .search-icon {
@@ -273,18 +275,18 @@ export default {
 .search-input {
   width: 100%;
   padding: 0.5rem 2.5rem 0.5rem 2.5rem;
-  border: 1px solid #cbd5e1;
+  border: 1px solid var(--color-border-strong);
   border-radius: 8px;
   font-size: 0.875rem;
-  color: #0f172a;
-  background: #f8fafc;
+  color: var(--color-text-strong);
+  background: var(--color-bg);
   transition: all 0.2s;
 }
 
 .search-input:focus {
   outline: none;
   border-color: #3b82f6;
-  background: white;
+  background: var(--color-surface);
   box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
 }
 
@@ -308,8 +310,8 @@ export default {
 }
 
 .clear-search:hover {
-  background: #e2e8f0;
-  color: #64748b;
+  background: var(--color-border);
+  color: var(--color-text-muted);
 }
 
 .clear-search svg {
@@ -321,7 +323,7 @@ export default {
 .error {
   padding: 2rem;
   text-align: center;
-  color: #64748b;
+  color: var(--color-text-muted);
 }
 
 .error {
@@ -334,6 +336,11 @@ export default {
 }
 
 .clickable-row:hover {
-  background: #eff6ff !important;
+  background: var(--color-primary-bg) !important;
+}
+
+/* Location column: keep warehouse codes such as B-05 on one line */
+td:nth-last-child(2) {
+  white-space: nowrap;
 }
 </style>

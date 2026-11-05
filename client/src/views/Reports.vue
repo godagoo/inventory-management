@@ -1,7 +1,7 @@
 <template>
   <div class="reports">
     <div class="page-header">
-      <h2>Performance Reports</h2>
+      <h1>Performance Reports</h1>
       <p>View quarterly performance metrics and monthly trends</p>
     </div>
 
@@ -321,50 +321,32 @@ export default {
   padding: 0;
 }
 
-.card {
-  background: white;
-  border-radius: 12px;
-  padding: 1.5rem;
-  margin-bottom: 1.5rem;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-}
-
-.card-header {
-  margin-bottom: 1.5rem;
-}
-
-.card-title {
-  font-size: 1.25rem;
-  font-weight: 600;
-  color: #0f172a;
-  margin: 0;
-}
-
 .reports-table {
   width: 100%;
   border-collapse: collapse;
 }
 
 .reports-table th {
-  background: #f8fafc;
+  background: var(--color-bg);
   padding: 0.75rem;
   text-align: left;
   font-weight: 600;
-  color: #64748b;
-  border-bottom: 2px solid #e2e8f0;
+  color: var(--color-text-muted);
+  border-bottom: 2px solid var(--color-border);
 }
 
 .reports-table td {
   padding: 0.75rem;
-  border-bottom: 1px solid #e2e8f0;
+  border-bottom: 1px solid var(--color-border);
 }
 
 .reports-table tr:hover {
-  background: #f8fafc;
+  background: var(--color-bg);
 }
 
 .chart-container {
-  padding: 2rem 1rem;
+  overflow-x: auto;
+  padding: var(--space-4);
   min-height: 300px;
 }
 
@@ -400,13 +382,13 @@ export default {
 }
 
 .bar:hover {
-  background: linear-gradient(to top, #2563eb, #3b82f6);
+  background: linear-gradient(to top, var(--color-primary), #3b82f6);
 }
 
 .bar-label {
   margin-top: 0.5rem;
   font-size: 0.75rem;
-  color: #64748b;
+  color: var(--color-text-muted);
   text-align: center;
   transform: rotate(-45deg);
   white-space: nowrap;
@@ -421,23 +403,23 @@ export default {
 }
 
 .stat-card {
-  background: white;
-  border-radius: 12px;
-  padding: 1.5rem;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
   border-left: 4px solid #3b82f6;
+  border-radius: var(--radius-lg);
+  padding: var(--space-4);
 }
 
 .stat-label {
   font-size: 0.875rem;
-  color: #64748b;
+  color: var(--color-text-muted);
   margin-bottom: 0.5rem;
 }
 
 .stat-value {
   font-size: 1.875rem;
   font-weight: 700;
-  color: #0f172a;
+  color: var(--color-text-strong);
 }
 
 .badge {
@@ -454,12 +436,12 @@ export default {
 
 .badge.warning {
   background: #fef3c7;
-  color: #92400e;
+  color: var(--color-warning-fg);
 }
 
 .badge.danger {
   background: #fee2e2;
-  color: #991b1b;
+  color: var(--color-danger-fg);
 }
 
 .positive-change {
@@ -468,19 +450,19 @@ export default {
 }
 
 .negative-change {
-  color: #dc2626;
+  color: var(--color-danger);
   font-weight: 600;
 }
 
 .loading {
   text-align: center;
   padding: 3rem;
-  color: #64748b;
+  color: var(--color-text-muted);
 }
 
 .error {
   background: #fee2e2;
-  color: #991b1b;
+  color: var(--color-danger-fg);
   padding: 1rem;
   border-radius: 8px;
   margin: 1rem 0;
