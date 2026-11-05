@@ -54,6 +54,7 @@ npm install && npm run dev
 - `GET /api/dashboard/summary` - All filters
 - `GET /api/demand`, `/api/backlog` - No filters
 - `GET /api/spending/*` - Summary, monthly, categories, transactions
+- `GET /api/reports/quarterly`, `/api/reports/monthly-trends` - All filters
 - `GET /api/restock/recommendations?budget=` - Items to restock for a budget
 - `POST /api/restock-orders`, `GET /api/restock-orders` - Place and list restock orders (in memory, reset on restart)
 

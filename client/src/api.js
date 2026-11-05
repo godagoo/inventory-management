@@ -2,6 +2,10 @@ import axios from 'axios'
 
 const API_BASE_URL = 'http://localhost:8001/api'
 
+// Drops empty and 'all' filter values so they are not sent as query params
+const activeFilters = (filters) =>
+  Object.fromEntries(Object.entries(filters).filter(([, value]) => value && value !== 'all'))
+
 export const api = {
   async getInventory(filters = {}) {
     const params = new URLSearchParams()
@@ -66,6 +70,16 @@ export const api = {
     if (filters.month && filters.month !== 'all') params.append('month', filters.month)
 
     const response = await axios.get(`${API_BASE_URL}/dashboard/summary?${params.toString()}`)
+    return response.data
+  },
+
+  async getQuarterlyReports(filters = {}) {
+    const response = await axios.get(`${API_BASE_URL}/reports/quarterly`, { params: activeFilters(filters) })
+    return response.data
+  },
+
+  async getMonthlyTrends(filters = {}) {
+    const response = await axios.get(`${API_BASE_URL}/reports/monthly-trends`, { params: activeFilters(filters) })
     return response.data
   },
 

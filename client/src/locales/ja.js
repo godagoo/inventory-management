@@ -7,6 +7,8 @@ export default {
     finance: '財務',
     demandForecast: '需要予測',
     restocking: '補充発注',
+    reports: 'レポート',
+    backlog: 'バックログ',
     companyName: '触媒コンポーネンツ',
     subtitle: '在庫管理システム',
     primary: 'メインナビゲーション',
@@ -164,6 +166,63 @@ export default {
     }
   },
 
+  // Reports
+  reports: {
+    title: 'パフォーマンスレポート',
+    description: '四半期の業績指標と月次トレンドを確認します',
+    quarterlyPerformance: '四半期の業績',
+    monthlyRevenueTrend: '月次売上トレンド',
+    monthOverMonth: '前月比分析',
+    loadFailed: 'レポートの読み込みに失敗しました',
+    notAvailable: '該当なし',
+    monthLabel: '{year}年{month}',
+    table: {
+      quarter: '四半期',
+      totalOrders: '注文総数',
+      totalRevenue: '売上合計',
+      avgOrderValue: '平均注文額',
+      fulfillmentRate: '出荷達成率',
+      month: '月',
+      orders: '注文数',
+      revenue: '売上',
+      change: '増減額',
+      growthRate: '成長率'
+    },
+    stats: {
+      totalRevenue: '売上合計（年初来）',
+      avgMonthlyRevenue: '月平均売上',
+      totalOrders: '注文総数（年初来）',
+      bestQuarter: '最も好調だった四半期'
+    }
+  },
+
+  // Backlog
+  backlog: {
+    title: 'バックログ管理',
+    description: '在庫不足を把握し、解消します',
+    items: 'バックログ品目',
+    empty: 'バックログはありません。すべての注文を出荷できます。',
+    loadFailed: 'バックログの読み込みに失敗しました',
+    unitsShort: '{count}個不足',
+    daysCount: '{count}日',
+    stats: {
+      high: '優先度：高',
+      medium: '優先度：中',
+      low: '優先度：低',
+      total: 'バックログ品目の合計'
+    },
+    table: {
+      orderId: '注文ID',
+      sku: 'SKU',
+      itemName: '品名',
+      quantityNeeded: '必要数量',
+      quantityAvailable: '在庫数量',
+      shortage: '不足',
+      daysDelayed: '遅延日数',
+      priority: '優先度'
+    }
+  },
+
   // Finance/Spending
   finance: {
     title: '財務ダッシュボード',
@@ -230,7 +289,8 @@ export default {
     category: 'カテゴリ',
     orderStatus: '注文ステータス',
     all: 'すべて',
-    allMonths: 'すべての月'
+    allMonths: 'すべての月',
+    reset: 'すべてのフィルターをリセット'
   },
 
   // Statuses
@@ -364,6 +424,13 @@ export default {
 
   // Product Names
   productNames: {
+    'Electric Motor 5HP': '5馬力電動モーター',
+    'High-Temperature Gasket': '耐熱ガスケット',
+    'Industrial Widget Type A': '工業用ウィジェット タイプA',
+    'Logic Controller Board': 'ロジックコントローラーボード',
+    'Oil Filter Cartridge': 'オイルフィルターカートリッジ',
+    'Pressure Relief Valve': '圧力逃し弁',
+    'Steel Bearing Assembly': '鋼製ベアリングアセンブリ',
     'Single Layer PCB Assembly': '単層PCB組立',
     'Dual Layer PCB Assembly': '二層PCB組立',
     'Multi Layer PCB Assembly': '多層PCB組立',
